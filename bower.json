@@ -1,0 +1,22 @@
+{
+  "name": "cheap-copy-webapp",
+  "description": "",
+  "main": "",
+  "authors": [
+    "guochenguang <guochenguang@163.com>"
+  ],
+  "license": "MIT",
+  "homepage": "http://guocg.cn",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "^2.0.8"
+  }
+}
