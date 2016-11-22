@@ -2,9 +2,48 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=EDGE">
+    <meta name="description" content="一个练手的项目，使用vue">
+    <meta name="keywords" name="郭晨光,vue">
+
+    <!-- 禁止用户缩放 -->
+    <meta name="viewport" content="width=device-width,
+            initial-scale=1.0,minimum-scale=1.0,
+            maximum-scale=1.0,user-scalable=no">
+
+    <!-- 设置360浏览器使用极速模式 -->
+    <meta name="renderer" content="webkit">
+
+    <!-- 禁止百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <link rel="icon" type="image/png" href="{{assets}}i/favicon.png">
+
+    <!-- 下面的配置copy 妹子ui 的 http://amazeui.org/css/-->
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="{{assets}}i/app-icon72x72@2x.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <title>友帮宝</title>
 </head>
 <body>
+<div style="height:27px; background:blue;">
 
+</div>
+<script src="./libs/vue/dist/vue.js"></script>
+<script>
+    alert(window.navigator.standalone);
+    window.navigator.standalone = true;
+</script>
 </body>
 </html>
