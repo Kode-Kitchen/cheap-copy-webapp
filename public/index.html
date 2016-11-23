@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" style="overflow: hidden;">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=EDGE">
@@ -14,6 +14,8 @@
     <!-- 设置360浏览器使用极速模式 -->
     <meta name="renderer" content="webkit">
 
+    <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes">
+
     <!-- 禁止百度转码 -->
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
@@ -26,6 +28,7 @@
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="yes" name="apple-touch-fullscreen">
     <meta name="apple-mobile-web-app-status-bar-style" content="white-translucent">
     <meta name="apple-mobile-web-app-title" content="友帮宝"/>
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
@@ -74,6 +77,72 @@
                 </div>
             </div>
         </div>
+
+        <ul class="table-view">
+            <li class="table-view-cell media">
+                <a class="navigate-right">
+                    <img class="media-object pull-left" src="http://placehold.it/42x42">
+                    <div class="media-body">
+                        Item 1
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </a>
+            </li>
+            <li class="table-view-cell media">
+                <a class="navigate-right">
+                    <img class="media-object pull-left" src="http://placehold.it/42x42">
+                    <div class="media-body">
+                        Item 1
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </a>
+            </li>
+            <li class="table-view-cell media">
+                <a class="navigate-right">
+                    <img class="media-object pull-left" src="http://placehold.it/42x42">
+                    <div class="media-body">
+                        Item 1
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </a>
+            </li>
+            <li class="table-view-cell media">
+                <a class="navigate-right">
+                    <img class="media-object pull-left" src="http://placehold.it/42x42">
+                    <div class="media-body">
+                        Item 1
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </a>
+            </li>
+            <li class="table-view-cell media">
+                <a class="navigate-right">
+                    <img class="media-object pull-left" src="http://placehold.it/42x42">
+                    <div class="media-body">
+                        Item 1
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </a>
+            </li>
+            <li class="table-view-cell media">
+                <a class="navigate-right">
+                    <img class="media-object pull-left" src="http://placehold.it/42x42">
+                    <div class="media-body">
+                        Item 1
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </a>
+            </li>
+            <li class="table-view-cell media">
+                <a class="navigate-right">
+                    <img class="media-object pull-left" src="http://placehold.it/42x42">
+                    <div class="media-body">
+                        Item 1
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
     </div>
 
     <nav class="bar bar-tab">
@@ -102,5 +171,28 @@
     <!-- 第三方库文件 -->
     <script src="./libs/vue/dist/vue.js"></script>
     <script src="./libs/ratchet-v2.0.2/js/ratchet.js"></script>
+    <script>
+        window.addEventListener('touchmove', function(e){
+            e.preventDefault();
+        }, true);
+
+        document.getElementsByClassName('content')[0]
+                .addEventListener('touchstart', function(e){
+                    //console.log(e.targetTouches[0].pageY);
+                    var startY  = e.targetTouches[0].pageY;
+                    var nowY = parseInt( e.currentTarget.style.transform.match(/-?\d+/)) || 0;
+                    document.getElementsByClassName('content')[0]
+                            .addEventListener('touchmove', function(e){
+
+
+                                var moveY = e.targetTouches[0].pageY - startY+nowY;
+                                moveY = moveY > 0 ? 0 : moveY;
+                                console.log( moveY );
+                                e.currentTarget.style.transform = "translateY("+moveY+"px)"
+                            });
+                });
+
+
+    </script>
 </body>
 </html>

@@ -8,6 +8,9 @@ body {
 .bar-nav .main-font-color, .main-font-color{
   color:#fff;
 }
+.content{
+  overflow: inherit;
+}
 
 /* header 样式 */
 #main-search{
