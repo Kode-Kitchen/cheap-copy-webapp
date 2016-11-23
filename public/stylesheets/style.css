@@ -1,8 +1,57 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.main-bg-color{
+  background: #ff6565;
 }
+.bar-nav .main-font-color, .main-font-color{
+  color:#fff;
+}
+
+/* header 样式 */
+#main-search{
+  width: 66%;
+  height: 28px;
+  padding: 0 14% 0 18%;
+  color: #808080;
+  font-size: 14px;
+  border: 1px solid #ffdc50;
+  border-radius: 6px;
+}
+#search-icon{
+  position: absolute;
+  left: 30%;
+  font-size: 20px;
+  color: #808080;
+  line-height: 28px;
+}
+.bar .btn-nav.pull-left {
+  margin-left: 0px;
+}
+.bar .btn-nav.pull-right{
+  margin-right: 0px;
+}
+#nav-map, #nav-filter{
+  font-size:14px;
+  font-weight: normal;
+}
+#nav-map .icon, #nav-filter .icon{
+  font-size:14px;
+  top:0px;
+}
+/* header 样式借结束 */
+
+
+/* 图片轮播部分的样式 */
+.slider {
+  height: 125px;
+}
+/* 图片轮播样式结束 */
+
+
+/* 底部导航条样式 */
+.bar-tab .tab-item.active, .bar-tab .tab-item:active {
+  color: #ff6565;
+}
+/* 结束底部导航条样式 */

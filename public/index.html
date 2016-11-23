@@ -26,8 +26,8 @@
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="white-translucent">
+    <meta name="apple-mobile-web-app-title" content="友帮宝"/>
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
@@ -35,15 +35,72 @@
     <meta name="msapplication-TileColor" content="#0e90d2">
 
     <title>友帮宝</title>
-</head>
-<body>
-<div style="height:27px; background:blue;">
 
-</div>
-<script src="./libs/vue/dist/vue.js"></script>
-<script>
-    alert(window.navigator.standalone);
-    window.navigator.standalone = true;
-</script>
+    <link rel="stylesheet" href="./libs/ratchet-v2.0.2/css/ratchet.css">
+    <link rel="stylesheet" href="./libs/Font-Awesome-3.2.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+</head>
+
+<body>
+
+    <header class="bar bar-nav main-bg-color">
+        <button id="nav-map" class="btn btn-link btn-nav pull-left main-font-color">
+            全国
+            <span class="icon icon-down-nav main-font-color"></span>
+        </button>
+        <button id="nav-filter" class="btn btn-link btn-nav pull-right main-font-color">
+            筛选
+            <span class="icon icon-pages main-font-color"></span>
+        </button>
+        <span id="search-icon" class="icon icon-search"></span>
+        <h1 class="title main-font-color"><input id="main-search" placeholder="请输入查询的关键字" type="text"></h1>
+    </header>
+
+    <div class="content">
+        <div class="slider" id="mySlider">
+            <div class="slide-group">
+                <div class="slide">
+                    <img src="./images/slide-1.jpg">
+                    <span class="slide-text">
+                        <span class="icon icon-left-nav"></span>
+                        Slide me
+                    </span>
+                </div>
+                <div class="slide">
+                    <img src="./images/slide-2.jpg">
+                </div>
+                <div class="slide">
+                    <img src="./images/slide-3.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bar bar-tab">
+        <a class="tab-item active" href="#">
+            <span class="icon icon-home"></span>
+            <span class="tab-label">创业圈</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-map-marker"></span>
+            <span class="tab-label">发现</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-edit"></span>
+            <span class="tab-label">发布</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-comment-alt"></span>
+            <span class="tab-label">消息</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-gear"></span>
+            <span class="tab-label">设置</span>
+        </a>
+    </nav>
+
+    <!-- 第三方库文件 -->
+    <script src="./libs/vue/dist/vue.js"></script>
+    <script src="./libs/ratchet-v2.0.2/js/ratchet.js"></script>
 </body>
 </html>
