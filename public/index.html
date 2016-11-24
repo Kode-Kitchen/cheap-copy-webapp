@@ -221,12 +221,16 @@
             myScroll.on("scrollEnd",action);
 
             function positionJudge(){
-                if(this.y>100){    //判断下拉
+                if(this.y>80){    //判断下拉
                     pullDown.innerHTML = "放开刷新页面";
                     pullDownFlag = 1;
                 }else if(this.y<(this.maxScrollY-40)){   //判断上拉
                     pullUp.innerHTML = "放开刷新页面";
                     pullUpFlag = 1;
+                }
+
+                if( this.y <20 && pullDownFlag==1 ){
+                    pullDown.style.position = 'static';
                 }
 
             }
@@ -244,7 +248,7 @@
             }
 
             function pullDownAction(){
-                var index = layer.open({type: 2});
+//                var index = layer.open({type: 2});
                 setTimeout(function(){
                     var ul = document.querySelector('ul.table-view');
                     var li = document.createElement('li');
@@ -259,7 +263,13 @@
                             '</a>';
                     ul.insertBefore(li, ul.childNodes[0]);
                     myScroll.refresh();
-                    layer.close(index);
+//                    layer.close(index);
+                    pullDown.innerHTML = "刷新成功";
+                    setTimeout(function(){
+                        pullDown.style.position = 'absolute';
+                        pullDown.innerHTML = "下拉刷新...";
+                    }, 1000);
+
                 },2000);
             }
             function pullUpAction(){
