@@ -58,3 +58,20 @@ body {
   color: #ff6565;
 }
 /* 结束底部导航条样式 */
+
+/* 上拉下拉部分 */
+#pullDown, #pullUp{
+  height:40px;
+  text-align:center;
+  line-height:40px;
+  font-size:16px;
+}
+#pullUp{
+  margin-top:-15px;
+}
+
+#pullDown{
+  position:absolute;
+  top:-40px;
+  width:100%;
+}

@@ -60,7 +60,10 @@
     </header>
 
     <div class="content" id="wrapper" style="position:absolute; top:44px; bottom:50px; padding-top:0; overflow:hidden;">
-        <div>
+        <div id="scroller">
+            <div id="pullDown">
+                <span>下拉刷新…</span>
+            </div>
             <div class="slider" id="mySlider">
                 <div class="slide-group">
                     <div class="slide">
@@ -143,6 +146,9 @@
                     </a>
                 </li>
             </ul>
+            <div id="pullUp">
+                <span>上拉加载更多…</span>
+            </div>
         </div>
 
     </div>
@@ -173,7 +179,8 @@
     <!-- 第三方库文件 -->
     <script src="./libs/vue/dist/vue.js"></script>
     <script src="./libs/ratchet/dist/js/ratchet.js"></script>
-    <script src="./libs/iscroll/build/iscroll-lite.js"></script>
+    <script src="./libs/iscroll/build/iscroll-probe.js"></script>
+    <script src="./libs/layer/build/mobile/layer.js"></script>
     <script>
 
         // 阻止整个页面的触摸触摸默认动作，避免页面整体上下滚动。
@@ -187,7 +194,99 @@
         function loaded() {
             //alert(document.body.clientHeight);
             //document.querySelector('#wrapper').style.height = document.body.clientHeight-44-50+'px';
-            var myScroll = new IScroll('#wrapper');
+            var myScroll = new IScroll('#wrapper', {
+                probeType: 3,
+                //momentum: false,//关闭惯性滑动
+                mouseWheel: true,//鼠标滑轮开启
+                scrollbars: true,//滚动条可见
+                fadeScrollbars: true,//滚动条渐隐
+                interactiveScrollbars: true,//滚动条可拖动
+                shrinkScrollbars: 'scale', // 当滚动边界之外的滚动条是由少量的收缩
+                useTransform: true,//CSS转化
+                useTransition: true,//CSS过渡
+                bounce: true,//反弹
+                freeScroll: false,//只能在一个方向上滑动
+                startX: 0,
+                startY: 0
+            });
+
+            var
+                pullDown = document.querySelector('#pullDown'),
+                pullUp = document.querySelector('#pullUp'),
+                pullDownFlag = 0,
+                pullUpFlag = 0;
+
+
+            myScroll.on('scroll',positionJudge);
+            myScroll.on("scrollEnd",action);
+
+            function positionJudge(){
+                if(this.y>100){    //判断下拉
+                    pullDown.innerHTML = "放开刷新页面";
+                    pullDownFlag = 1;
+                }else if(this.y<(this.maxScrollY-40)){   //判断上拉
+                    pullUp.innerHTML = "放开刷新页面";
+                    pullUpFlag = 1;
+                }
+
+            }
+
+            function action(){
+                if(pullDownFlag==1){
+                    pullDownAction();
+                    pullDown.innerHTML = "正在刷新...";
+                    pullDownFlag = 0;
+                }else if(pullUpFlag==1){
+                    pullUpAction();
+                    pullUp.innerHTML = "上拉刷新...";
+                    pullUpFlag = 0;
+                }
+            }
+
+            function pullDownAction(){
+                var index = layer.open({type: 2});
+                setTimeout(function(){
+                    var ul = document.querySelector('ul.table-view');
+                    var li = document.createElement('li');
+
+                    li.setAttribute("class","table-view-cell media");
+                    li.innerHTML='<a class="navigate-right">'+
+                            '<img class="media-object pull-left" src="http://placehold.it/42x42">'+
+                            '<div class="media-body">'+
+                            'Item 0'+
+                            '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>'+
+                            '</div>'+
+                            '</a>';
+                    ul.insertBefore(li, ul.childNodes[0]);
+                    myScroll.refresh();
+                    layer.close(index);
+                },2000);
+            }
+            function pullUpAction(){
+
+                var index = layer.open({
+                    type: 2,
+                    shadow: false
+                });
+                setTimeout(function(){
+                    var ul = document.querySelector('ul.table-view');
+                    var li = document.createElement('li');
+                    li.setAttribute("class","table-view-cell media");
+                    li.innerHTML='<a class="navigate-right">'+
+                            '<img class="media-object pull-left" src="http://placehold.it/42x42">'+
+                            '<div class="media-body">'+
+                            'Item 5'+
+                            '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>'+
+                            '</div>'+
+                            '</a>';
+                    ul.appendChild(li);
+                    ul.appendChild(li);
+                    console.log(li);
+                    myScroll.refresh();
+                    layer.close(index);
+                },1000);
+            }
+
         }
 
     </script>
