@@ -39,8 +39,8 @@
 
     <title>友帮宝</title>
 
-    <link rel="stylesheet" href="./libs/ratchet-v2.0.2/css/ratchet.css">
-    <link rel="stylesheet" href="./libs/Font-Awesome-3.2.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./libs/ratchet/dist/css/ratchet.css">
+    <link rel="stylesheet" href="./libs/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="./stylesheets/style.css">
 </head>
 
@@ -170,7 +170,7 @@
 
     <!-- 第三方库文件 -->
     <script src="./libs/vue/dist/vue.js"></script>
-    <script src="./libs/ratchet-v2.0.2/js/ratchet.js"></script>
+    <script src="./libs/ratchet/dist/js/ratchet.js"></script>
     <script>
         window.addEventListener('touchmove', function(e){
             e.preventDefault();
@@ -183,8 +183,6 @@
                     var nowY = parseInt( e.currentTarget.style.transform.match(/-?\d+/)) || 0;
                     document.getElementsByClassName('content')[0]
                             .addEventListener('touchmove', function(e){
-
-
                                 var moveY = e.targetTouches[0].pageY - startY+nowY;
                                 moveY = moveY > 0 ? 0 : moveY;
                                 console.log( moveY );
