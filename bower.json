@@ -23,6 +23,7 @@
     "ratchet": "^2.0.2",
     "font-awesome": "3.2.1",
     "iscroll": "^5.2.0",
-    "layer": "https://github.com/sentsin/layer.git"
+    "layer": "https://github.com/sentsin/layer.git",
+    "swiper": "^3.4.0"
   }
 }
