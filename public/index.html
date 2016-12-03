@@ -39,9 +39,48 @@
 
     <title>友帮宝</title>
 
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .box{
+            background: #666;
+
+            display:flex;
+            /*flex-direction: row;
+            flex-wrap: wrap;*/
+            flex-flow: row wrap;
+            justify-content: space-between;
+        }
+        .box li{
+            height:50px;
+            width:50px;
+            padding:10px;
+
+            background: #fff0f0;
+            border: 1px solid #ddd;
+
+            list-style: none;
+        }
+    </style>
+
 </head>
 
 <body>
+
+<ul class="box">
+    <li style="order:9">a</li>
+    <li style="order:2; flex-grow:1;">b</li>
+    <li>c</li>
+    <li>d</li>
+    <li>e</li>
+    <li>f</li>
+    <li>g</li>
+    <li>h</li>
+    <li>i</li>
+    <li>j</li>
+</ul>
 
 </body>
 </html>
