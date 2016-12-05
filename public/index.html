@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <ul class="table-view">
+            <ul class="table-view" id="list">
                 <li class="table-view-cell media">
                     <a class="navigate-right">
                         <img class="media-object pull-left" src="http://placehold.it/42x42">
@@ -296,6 +296,19 @@
                     layer.close(index);
                 },1000);
             }
+
+
+            // vueJs
+            var vm = new Vue({
+                el: "#list",
+                data: {
+                    item: "标题",
+                    content: "这是内容"
+                },
+                created: function() {
+                    console.log('title is:'+this.item);
+                }
+            });
 
         }
         // 恢复版本
