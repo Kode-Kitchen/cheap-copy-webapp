@@ -81,70 +81,21 @@
                     </div>
                 </div>
             </div>
-            <ul class="table-view">
-                <li class="table-view-cell media">
-                    <a class="navigate-right">
-                        <img class="media-object pull-left" src="http://placehold.it/42x42">
-                        <div class="media-body">
-                            Item 1
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="table-view-cell media">
-                    <a class="navigate-right">
-                        <img class="media-object pull-left" src="http://placehold.it/42x42">
-                        <div class="media-body">
-                            Item 1
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="table-view-cell media">
-                    <a class="navigate-right">
-                        <img class="media-object pull-left" src="http://placehold.it/42x42">
-                        <div class="media-body">
-                            Item 1
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="table-view-cell media">
-                    <a class="navigate-right">
-                        <img class="media-object pull-left" src="http://placehold.it/42x42">
-                        <div class="media-body">
-                            Item 1
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="table-view-cell media">
-                    <a class="navigate-right">
-                        <img class="media-object pull-left" src="http://placehold.it/42x42">
-                        <div class="media-body">
-                            Item 1
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="table-view-cell media">
-                    <a class="navigate-right">
-                        <img class="media-object pull-left" src="http://placehold.it/42x42">
-                        <div class="media-body">
-                            Item 1
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="table-view-cell media">
-                    <a class="navigate-right">
-                        <img class="media-object pull-left" src="http://placehold.it/42x42">
-                        <div class="media-body">
-                            Item 1
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </a>
-                </li>
+            <ul class="table-view" id="table-view-list">
+                <parent>
+
+                </parent>
+                <template v-for="(item, index) in items">
+                    <li class="table-view-cell media">
+                        <a class="navigate-right">
+                            <img class="media-object pull-left" src="http://placehold.it/42x42">
+                            <div class="media-body">
+                                {{item.title}}{{index+1}}
+                                <p>{{item.content}}{{index*2}}</p>
+                            </div>
+                        </a>
+                    </li>
+                </template>
             </ul>
             <div id="pullUp">
                 <span>上拉加载更多…</span>
@@ -188,10 +139,113 @@
             e.preventDefault();
         }, true);
 
+        var data = {
+            content: 'abvdfrd',
+            dynamicId: '123456',
+            url: 'http://guocg.cn',
+            doSomething: function(){
+                alert(123);
+            },
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar',
+            index: 0,
+
+            items: [
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                },
+                {
+                    title: 'item',
+                    content: 'nihao'
+                }
+            ]
+        };
+
+        // 定义全局组件
+        Vue.component('parent', {
+            data: function() {
+                return {
+                    msg: 'guocg.cn'
+                }
+            },
+            template: '\
+            <li>view-list\
+                <child :message="msg"></child>\
+            </li>'
+        });
+        Vue.component('child', {
+            props: ['message'],
+            template: '\
+            <p>{{message}}</p>\
+            '
+        });
+
+
         // 主函数
         window.onload = loaded;
 
         function loaded() {
+
+            var vm = new Vue({
+                el: '#table-view-list',
+                data: data,
+                filters: {
+                    capitalize: function (value) {
+                        if (!value) return ''
+                        value = value.toString()
+                        return value.charAt(0).toUpperCase() + value.slice(1)
+                    }
+                },
+                computed: {
+                    reverseContent: function() {
+                        return this.content.split('').reverse().join('');
+                    }
+                },
+                watch: {
+                    firstName: function(val) {
+                        this.fullName = val + ' ' + this.lastName;
+                    },
+                    lastName: function(val) {
+                        this.fullName = this.firstName + ' ' + val;
+                    }
+                }
+            });
+
+
             //alert(document.body.clientHeight);
             //document.querySelector('#wrapper').style.height = document.body.clientHeight-44-50+'px';
             var myScroll = new IScroll('#wrapper', {

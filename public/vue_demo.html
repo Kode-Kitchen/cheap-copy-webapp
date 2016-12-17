@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="overflow: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=EDGE">
+    <meta name="description" content="一个练手的项目，使用vue">
+    <meta name="keywords" name="郭晨光,vue">
+
+    <!-- 禁止用户缩放 -->
+    <meta name="viewport" content="width=device-width,
+            initial-scale=1.0,minimum-scale=1.0,
+            maximum-scale=1.0,user-scalable=no">
+
+    <!-- 设置360浏览器使用极速模式 -->
+    <meta name="renderer" content="webkit">
+
+    <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes">
+
+    <!-- 禁止百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <link rel="icon" type="image/png" href="{{assets}}i/favicon.png">
+
+    <!-- 下面的配置copy 妹子ui 的 http://amazeui.org/css/-->
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="{{assets}}i/app-icon72x72@2x.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white-translucent">
+    <meta name="apple-mobile-web-app-title" content="友帮宝"/>
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <title>友帮宝</title>
+
+    <link rel="stylesheet" href="./libs/ratchet/dist/css/ratchet.css">
+    <link rel="stylesheet" href="./libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+</head>
+
+<body >
+<div id="main">
+    <header class="bar bar-nav main-bg-color">
+        <button id="nav-map" class="btn btn-link btn-nav pull-left main-font-color">
+            全国
+            <span class="icon icon-angle-down main-font-color"></span>
+        </button>
+        <button id="nav-filter" class="btn btn-link btn-nav pull-right main-font-color">
+            筛选
+            <span class="icon icon-filter main-font-color"></span>
+        </button>
+        <span id="search-icon" class="icon icon-search"></span>
+        <h1 class="title main-font-color"><input id="main-search" placeholder="请输入查询的关键字" type="text"></h1>
+    </header>
+
+    <my-list></my-list>
+
+    <nav class="bar bar-tab">
+        <a class="tab-item active" href="#">
+            <span class="icon icon-home"></span>
+            <span class="tab-label">创业圈</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-map-marker"></span>
+            <span class="tab-label">发现</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-edit"></span>
+            <span class="tab-label">发布</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-comment-alt"></span>
+            <span class="tab-label">消息</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-gear"></span>
+            <span class="tab-label">设置</span>
+        </a>
+    </nav>
+</div>
+
+<!-- 第三方库文件 -->
+<script src="./libs/vue/dist/vue.js"></script>
+<script src="./libs/ratchet/dist/js/ratchet.js"></script>
+<script src="./libs/iscroll/build/iscroll-probe.js"></script>
+<script src="./libs/layer/build/mobile/layer.js"></script>
+<script>
+
+    // 阻止整个页面的触摸触摸默认动作，避免页面整体上下滚动。
+    window.addEventListener('touchmove', function(e){
+        e.preventDefault();
+    }, true);
+
+    var listData = {
+        listScroll: {
+            pullDown: '下拉刷新',
+            pullUp: '上拉加载更多数据',
+            pullEndPos:0,
+            startY: 0,
+            style: {
+                transform: 'translateY(0px)',
+                transition: 'transform 0'
+            },
+
+            wapperH:1,
+            scrollerH:0
+        },
+        items: [
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            },
+            {
+                title: 'item',
+                content: 'nihao'
+            }
+        ]
+    }
+
+    Vue.component('my-list', {
+        template: '\
+            <div class="content" id="wrapper" @touchend="touchEnd($event)"\
+                    @touchstart="touchStart($event)" @touchmove="touchMove($event)"\
+                            style="position:absolute; top:44px; bottom:50px; \
+                                    padding-top:0; overflow:hidden;">\
+                <div id="scroller" v-bind:style="listScroll.style">\
+                    <div id="pullDown">\
+                        <span>{{listScroll.pullDown}}</span>\
+                    </div>\
+                    <ul class="table-view">\
+                        <template v-for="(item, index) in items">\
+                        <li class="table-view-cell media">\
+                            <a class="navigate-right">\
+                                <img class="media-object pull-left" src="http://placehold.it/42x42">\
+                                <div class="media-body">\
+                                    {{item.title}}{{index+1}}\
+                                    <p>{{item.content}}{{index*2}}</p>\
+                                </div>\
+                            </a>\
+                        </li>\
+                        </template>\
+                    </ul>\
+                    <div id="pullUp" v-if="isPull">\
+                    <span>{{listScroll.pullUp}}</span>\
+                </div>\
+            </div>\
+        </div>',
+        data: function() {
+            return listData;
+        },
+
+        updated: function(){
+
+            // 计算 容器 和 滚动区域的高度
+            this.listScroll.wapperH =
+                    parseInt(
+                            window.getComputedStyle(this.$el, null).
+                            getPropertyValue('height')
+                    );
+            this.listScroll.scrollerH =
+                    parseInt(
+                            window.getComputedStyle(this.$el.firstChild, null).
+                            getPropertyValue('height')
+                    );
+        },
+
+        computed: {
+            maxPullUp: function() {
+                return this.listScroll.wapperH -
+                        this.listScroll.scrollerH;
+            },
+            isPull: function() {
+                if( this.listScroll.wapperH > this.listScroll.scrollerH ) {
+                    return false;
+                }else {
+                    return true;
+                }
+            }
+        },
+
+        methods: {
+            touchStart: function(event){
+                this.listScroll.style.transition = '';
+                this.listScroll.pullDown = '下拉刷新';
+                this.listScroll.startY=event.targetTouches[0].pageY
+                        -this.listScroll.pullEndPos;
+//                console.log('listScroll.startY:'+ this.listScroll.startY);
+            },
+            touchMove: function(event) {
+                var pullPx =
+                        event.targetTouches[0].pageY-
+                        this.listScroll.startY;
+
+                // 下拉  限制最多下拉距离; 上拉，限制最大上啦距离
+                if( pullPx > 150 || (pullPx < (this.maxPullUp - 100)&&this.isPull) ||
+                        (pullPx<0&&!this.isPull) ) {
+                    return false
+                } else {
+                    this.listScroll.pullEndPos = pullPx;
+                }
+
+                if( pullPx >= 0 ) {
+                    // 下拉刷新
+                    pullPx > 80 ?
+                            this.listScroll.pullDown = '放手更新列表':
+                                    this.listScroll.pullDown = '下拉刷新';
+                } else {
+                    // 上拉加载更多数据
+                    this.maxPullUp - pullPx > 50 ?
+                            this.listScroll.pullUp = '放手加载更多数据':
+                                    this.listScroll.pullUp = '上拉加载更多数据';
+                }
+
+
+                this.listScroll.style.transform =
+                        'translateY('+pullPx+ 'px'+')';
+
+//                console.log( this.listScroll.pullEndPos );
+
+            },
+            touchEnd: function(event) {
+                var pullPx = this.listScroll.pullEndPos;
+                if( pullPx > 0 ) { // 下拉刷新
+
+                    if( pullPx > 50 ){
+                        this.listScroll.pullDown = '正在更新...';
+                        this.listScroll.style.transform =
+                                'translateY(40px)';
+                        this.listScroll.pullEndPos = 40;
+                        this.refresh();
+
+                    } else {
+                        this.listScroll.pullEndPos = 0;
+                        this.listScroll.style.transform =
+                                'translateY(0px)';
+                    }
+
+                } else if( this.maxPullUp > pullPx && this.isPull ) { // 上拉加载更多
+
+                    if (this.maxPullUp - pullPx > 50 ) {
+                        this.listScroll.pullUp = '正在加载数据...';
+                        this.loadMore();
+                    }
+
+                    this.listScroll.style.transform =
+                            'translateY('+this.maxPullUp+'px)';
+
+                    this.listScroll.pullEndPos = this.maxPullUp;
+
+                }
+
+                this.listScroll.style.transition =
+                        'transform .5s';
+
+            },
+
+            // 模拟刷新页面
+            refresh: function() {
+                setTimeout(function(){
+                    //...
+                    this.listScroll.pullDown = '刷新成功';
+                }.bind(this), 1000);
+
+                setTimeout(function(){
+                    this.listScroll.pullEndPos = 0;
+                    this.listScroll.style.transform =
+                            'translateY(0px)';
+                }.bind(this), 1500);
+            },
+
+            // 模拟翻页加载更多数据
+            loadMore: function() {
+                setTimeout(function(){
+                    this.items.push({
+                        title: 'item',
+                        content: new Date()
+                    });
+                    this.listScroll.pullPu = '上拉加载更多';
+                }.bind(this), 1000);
+            }
+
+        }
+    });
+
+    var vm = new Vue({
+        el: '#main'
+    });
+
+</script>
+</body>
+</html>
